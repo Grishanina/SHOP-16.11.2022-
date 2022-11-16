@@ -1,0 +1,41 @@
+﻿<Page x:Class="WpfApp1.CreateProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreateProduct">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Width="500">
+                <GroupBox Header="Введите название продукта">
+                    <TextBox Name="tbName"></TextBox>
+                </GroupBox>
+                <GroupBox Header="Выберите производителя продукта">
+                    <ComboBox Name="cmbManufact"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Выберите поставщика продукта">
+                    <ComboBox Name="cmbProvider"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Выберите тип продукта">
+                    <ComboBox Name="cmbType"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Выберите скидку">
+                    <ComboBox Name="cmbDiscount"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Выберите элементы состава">
+                    <ListBox Name="lbSostav" SelectionMode="Multiple"></ListBox>
+                </GroupBox>
+                <GroupBox Header="Введите цену продукта">
+                    <TextBox Name="tbPrice"></TextBox>
+                </GroupBox>
+                
+                <Button Name="btnAdd" Click="btnAdd_Click">Сохранить информацию</Button>
+                <Button Name="btnHom" Click="btnHom_Click">Назад</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

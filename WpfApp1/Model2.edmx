@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="T_Discount">
+          <Key>
+            <PropertyRef Name="id_discount" />
+          </Key>
+          <Property Name="id_discount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discount" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Manufacturer">
+          <Key>
+            <PropertyRef Name="id_manufacturer" />
+          </Key>
+          <Property Name="id_manufacturer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Pol">
+          <Key>
+            <PropertyRef Name="id_pol" />
+          </Key>
+          <Property Name="id_pol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pol" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Product">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_manufacturer" Type="int" Nullable="false" />
+          <Property Name="id_type" Type="int" Nullable="false" />
+          <Property Name="id_provider" Type="int" Nullable="false" />
+          <Property Name="id_discount" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Provider">
+          <Key>
+            <PropertyRef Name="id_provider" />
+          </Key>
+          <Property Name="id_provider" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Provider" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Sostav">
+          <Key>
+            <PropertyRef Name="id_sostav" />
+          </Key>
+          <Property Name="id_sostav" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sostav" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Sostav_Product">
+          <Key>
+            <PropertyRef Name="id_sostav_product" />
+          </Key>
+          <Property Name="id_sostav_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="id_sostav" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Type">
+          <Key>
+            <PropertyRef Name="id_type" />
+          </Key>
+          <Property Name="id_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Userphoto">
+          <Key>
+            <PropertyRef Name="id_photo" />
+          </Key>
+          <Property Name="id_photo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="photoBinary" Type="varbinary(max)" />
+          <Property Name="photoPath" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+          <Property Name="id_pol" Type="int" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_T_Product_T_Discount1">
+          <End Role="T_Discount" Type="Self.T_Discount" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Discount">
+              <PropertyRef Name="id_discount" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Manufacturer">
+          <End Role="T_Manufacturer" Type="Self.T_Manufacturer" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Manufacturer">
+              <PropertyRef Name="id_manufacturer" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Provider">
+          <End Role="T_Provider" Type="Self.T_Provider" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Provider">
+              <PropertyRef Name="id_provider" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Type">
+          <End Role="T_Type" Type="Self.T_Type" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Type">
+              <PropertyRef Name="id_type" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Sostav_Product_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="T_Sostav_Product" Type="Self.T_Sostav_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="T_Sostav_Product">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Sostav_Product_T_Sostav">
+          <End Role="T_Sostav" Type="Self.T_Sostav" Multiplicity="1" />
+          <End Role="T_Sostav_Product" Type="Self.T_Sostav_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Sostav">
+              <PropertyRef Name="id_sostav" />
+            </Principal>
+            <Dependent Role="T_Sostav_Product">
+              <PropertyRef Name="id_sostav" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Userphoto_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+          <End Role="T_Userphoto" Type="Self.T_Userphoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="T_Userphoto">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Users_T_Pol">
+          <End Role="T_Pol" Type="Self.T_Pol" Multiplicity="1" />
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Pol">
+              <PropertyRef Name="id_pol" />
+            </Principal>
+            <Dependent Role="T_Users">
+              <PropertyRef Name="id_pol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Users_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="1" />
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="T_Users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Discount" EntityType="Self.T_Discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Manufacturer" EntityType="Self.T_Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Pol" EntityType="Self.T_Pol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Product" EntityType="Self.T_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Provider" EntityType="Self.T_Provider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Sostav" EntityType="Self.T_Sostav" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Sostav_Product" EntityType="Self.T_Sostav_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Type" EntityType="Self.T_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Userphoto" EntityType="Self.T_Userphoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_Product_T_Discount1" Association="Self.FK_T_Product_T_Discount1">
+            <End Role="T_Discount" EntitySet="T_Discount" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Manufacturer" Association="Self.FK_T_Product_T_Manufacturer">
+            <End Role="T_Manufacturer" EntitySet="T_Manufacturer" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Provider" Association="Self.FK_T_Product_T_Provider">
+            <End Role="T_Provider" EntitySet="T_Provider" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Type" Association="Self.FK_T_Product_T_Type">
+            <End Role="T_Type" EntitySet="T_Type" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Sostav_Product_T_Product" Association="Self.FK_T_Sostav_Product_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_Sostav_Product" EntitySet="T_Sostav_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Sostav_Product_T_Sostav" Association="Self.FK_T_Sostav_Product_T_Sostav">
+            <End Role="T_Sostav" EntitySet="T_Sostav" />
+            <End Role="T_Sostav_Product" EntitySet="T_Sostav_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Userphoto_T_Users" Association="Self.FK_T_Userphoto_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Userphoto" EntitySet="T_Userphoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Users_T_Pol" Association="Self.FK_T_Users_T_Pol">
+            <End Role="T_Pol" EntitySet="T_Pol" />
+            <End Role="T_Users" EntitySet="T_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Users_T_Role" Association="Self.FK_T_Users_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_Users" EntitySet="T_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="T_Discount">
+          <Key>
+            <PropertyRef Name="id_discount" />
+          </Key>
+          <Property Name="id_discount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discount" Type="Double" Nullable="false" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Product_T_Discount1" FromRole="T_Discount" ToRole="T_Product" />
+        </EntityType>
+        <EntityType Name="T_Manufacturer">
+          <Key>
+            <PropertyRef Name="id_manufacturer" />
+          </Key>
+          <Property Name="id_manufacturer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Product_T_Manufacturer" FromRole="T_Manufacturer" ToRole="T_Product" />
+        </EntityType>
+        <EntityType Name="T_Pol">
+          <Key>
+            <PropertyRef Name="id_pol" />
+          </Key>
+          <Property Name="id_pol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Users_T_Pol" FromRole="T_Pol" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_Product">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_manufacturer" Type="Int32" Nullable="false" />
+          <Property Name="id_type" Type="Int32" Nullable="false" />
+          <Property Name="id_provider" Type="Int32" Nullable="false" />
+          <Property Name="id_discount" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="T_Discount" Relationship="Self.FK_T_Product_T_Discount1" FromRole="T_Product" ToRole="T_Discount" />
+          <NavigationProperty Name="T_Manufacturer" Relationship="Self.FK_T_Product_T_Manufacturer" FromRole="T_Product" ToRole="T_Manufacturer" />
+          <NavigationProperty Name="T_Provider" Relationship="Self.FK_T_Product_T_Provider" FromRole="T_Product" ToRole="T_Provider" />
+          <NavigationProperty Name="T_Type" Relationship="Self.FK_T_Product_T_Type" FromRole="T_Product" ToRole="T_Type" />
+          <NavigationProperty Name="T_Sostav_Product" Relationship="Self.FK_T_Sostav_Product_T_Product" FromRole="T_Product" ToRole="T_Sostav_Product" />
+        </EntityType>
+        <EntityType Name="T_Provider">
+          <Key>
+            <PropertyRef Name="id_provider" />
+          </Key>
+          <Property Name="id_provider" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Product_T_Provider" FromRole="T_Provider" ToRole="T_Product" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Users_T_Role" FromRole="T_Role" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_Sostav">
+          <Key>
+            <PropertyRef Name="id_sostav" />
+          </Key>
+          <Property Name="id_sostav" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sostav" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Sostav_Product" Relationship="Self.FK_T_Sostav_Product_T_Sostav" FromRole="T_Sostav" ToRole="T_Sostav_Product" />
+        </EntityType>
+        <EntityType Name="T_Sostav_Product">
+          <Key>
+            <PropertyRef Name="id_sostav_product" />
+          </Key>
+          <Property Name="id_sostav_product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="id_sostav" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Sostav_Product_T_Product" FromRole="T_Sostav_Product" ToRole="T_Product" />
+          <NavigationProperty Name="T_Sostav" Relationship="Self.FK_T_Sostav_Product_T_Sostav" FromRole="T_Sostav_Product" ToRole="T_Sostav" />
+        </EntityType>
+        <EntityType Name="T_Type">
+          <Key>
+            <PropertyRef Name="id_type" />
+          </Key>
+          <Property Name="id_type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Product" Relationship="Self.FK_T_Product_T_Type" FromRole="T_Type" ToRole="T_Product" />
+        </EntityType>
+        <EntityType Name="T_Userphoto">
+          <Key>
+            <PropertyRef Name="id_photo" />
+          </Key>
+          <Property Name="id_photo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="photoBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="photoPath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Userphoto_T_Users" FromRole="T_Userphoto" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <Property Name="id_pol" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="T_Pol" Relationship="Self.FK_T_Users_T_Pol" FromRole="T_Users" ToRole="T_Pol" />
+          <NavigationProperty Name="T_Role" Relationship="Self.FK_T_Users_T_Role" FromRole="T_Users" ToRole="T_Role" />
+          <NavigationProperty Name="T_Userphoto" Relationship="Self.FK_T_Userphoto_T_Users" FromRole="T_Users" ToRole="T_Userphoto" />
+        </EntityType>
+        <Association Name="FK_T_Product_T_Discount1">
+          <End Role="T_Discount" Type="Self.T_Discount" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Discount">
+              <PropertyRef Name="id_discount" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Manufacturer">
+          <End Role="T_Manufacturer" Type="Self.T_Manufacturer" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Manufacturer">
+              <PropertyRef Name="id_manufacturer" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Users_T_Pol">
+          <End Role="T_Pol" Type="Self.T_Pol" Multiplicity="1" />
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Pol">
+              <PropertyRef Name="id_pol" />
+            </Principal>
+            <Dependent Role="T_Users">
+              <PropertyRef Name="id_pol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Provider">
+          <End Role="T_Provider" Type="Self.T_Provider" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Provider">
+              <PropertyRef Name="id_provider" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Product_T_Type">
+          <End Role="T_Type" Type="Self.T_Type" Multiplicity="1" />
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Type">
+              <PropertyRef Name="id_type" />
+            </Principal>
+            <Dependent Role="T_Product">
+              <PropertyRef Name="id_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Sostav_Product_T_Product">
+          <End Role="T_Product" Type="Self.T_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="T_Sostav_Product" Type="Self.T_Sostav_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Product">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="T_Sostav_Product">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Users_T_Role">
+          <End Role="T_Role" Type="Self.T_Role" Multiplicity="1" />
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="T_Users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Sostav_Product_T_Sostav">
+          <End Role="T_Sostav" Type="Self.T_Sostav" Multiplicity="1" />
+          <End Role="T_Sostav_Product" Type="Self.T_Sostav_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Sostav">
+              <PropertyRef Name="id_sostav" />
+            </Principal>
+            <Dependent Role="T_Sostav_Product">
+              <PropertyRef Name="id_sostav" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Userphoto_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+          <End Role="T_Userphoto" Type="Self.T_Userphoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="T_Userphoto">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities14" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="T_Discount" EntityType="Self.T_Discount" />
+          <EntitySet Name="T_Manufacturer" EntityType="Self.T_Manufacturer" />
+          <EntitySet Name="T_Pol" EntityType="Self.T_Pol" />
+          <EntitySet Name="T_Product" EntityType="Self.T_Product" />
+          <EntitySet Name="T_Provider" EntityType="Self.T_Provider" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" />
+          <EntitySet Name="T_Sostav" EntityType="Self.T_Sostav" />
+          <EntitySet Name="T_Sostav_Product" EntityType="Self.T_Sostav_Product" />
+          <EntitySet Name="T_Type" EntityType="Self.T_Type" />
+          <EntitySet Name="T_Userphoto" EntityType="Self.T_Userphoto" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" />
+          <AssociationSet Name="FK_T_Product_T_Discount1" Association="Self.FK_T_Product_T_Discount1">
+            <End Role="T_Discount" EntitySet="T_Discount" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Manufacturer" Association="Self.FK_T_Product_T_Manufacturer">
+            <End Role="T_Manufacturer" EntitySet="T_Manufacturer" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Users_T_Pol" Association="Self.FK_T_Users_T_Pol">
+            <End Role="T_Pol" EntitySet="T_Pol" />
+            <End Role="T_Users" EntitySet="T_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Provider" Association="Self.FK_T_Product_T_Provider">
+            <End Role="T_Provider" EntitySet="T_Provider" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Product_T_Type" Association="Self.FK_T_Product_T_Type">
+            <End Role="T_Type" EntitySet="T_Type" />
+            <End Role="T_Product" EntitySet="T_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Sostav_Product_T_Product" Association="Self.FK_T_Sostav_Product_T_Product">
+            <End Role="T_Product" EntitySet="T_Product" />
+            <End Role="T_Sostav_Product" EntitySet="T_Sostav_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Users_T_Role" Association="Self.FK_T_Users_T_Role">
+            <End Role="T_Role" EntitySet="T_Role" />
+            <End Role="T_Users" EntitySet="T_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Sostav_Product_T_Sostav" Association="Self.FK_T_Sostav_Product_T_Sostav">
+            <End Role="T_Sostav" EntitySet="T_Sostav" />
+            <End Role="T_Sostav_Product" EntitySet="T_Sostav_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Userphoto_T_Users" Association="Self.FK_T_Userphoto_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Userphoto" EntitySet="T_Userphoto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities14">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Discount">
+            <EntityTypeMapping TypeName="Model.T_Discount">
+              <MappingFragment StoreEntitySet="T_Discount">
+                <ScalarProperty Name="id_discount" ColumnName="id_discount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Manufacturer">
+            <EntityTypeMapping TypeName="Model.T_Manufacturer">
+              <MappingFragment StoreEntitySet="T_Manufacturer">
+                <ScalarProperty Name="id_manufacturer" ColumnName="id_manufacturer" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Pol">
+            <EntityTypeMapping TypeName="Model.T_Pol">
+              <MappingFragment StoreEntitySet="T_Pol">
+                <ScalarProperty Name="id_pol" ColumnName="id_pol" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Product">
+            <EntityTypeMapping TypeName="Model.T_Product">
+              <MappingFragment StoreEntitySet="T_Product">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="id_manufacturer" ColumnName="id_manufacturer" />
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+                <ScalarProperty Name="id_discount" ColumnName="id_discount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Provider">
+            <EntityTypeMapping TypeName="Model.T_Provider">
+              <MappingFragment StoreEntitySet="T_Provider">
+                <ScalarProperty Name="id_provider" ColumnName="id_provider" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Role">
+            <EntityTypeMapping TypeName="Model.T_Role">
+              <MappingFragment StoreEntitySet="T_Role">
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Sostav">
+            <EntityTypeMapping TypeName="Model.T_Sostav">
+              <MappingFragment StoreEntitySet="T_Sostav">
+                <ScalarProperty Name="id_sostav" ColumnName="id_sostav" />
+                <ScalarProperty Name="Sostav" ColumnName="Sostav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Sostav_Product">
+            <EntityTypeMapping TypeName="Model.T_Sostav_Product">
+              <MappingFragment StoreEntitySet="T_Sostav_Product">
+                <ScalarProperty Name="id_sostav_product" ColumnName="id_sostav_product" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_sostav" ColumnName="id_sostav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Type">
+            <EntityTypeMapping TypeName="Model.T_Type">
+              <MappingFragment StoreEntitySet="T_Type">
+                <ScalarProperty Name="id_type" ColumnName="id_type" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Userphoto">
+            <EntityTypeMapping TypeName="Model.T_Userphoto">
+              <MappingFragment StoreEntitySet="T_Userphoto">
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="photoBinary" ColumnName="photoBinary" />
+                <ScalarProperty Name="photoPath" ColumnName="photoPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Users">
+            <EntityTypeMapping TypeName="Model.T_Users">
+              <MappingFragment StoreEntitySet="T_Users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="id_pol" ColumnName="id_pol" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

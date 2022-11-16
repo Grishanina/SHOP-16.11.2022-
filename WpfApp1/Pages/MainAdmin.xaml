@@ -1,0 +1,30 @@
+﻿<Page x:Class="WpfApp1.MainAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainAdmin">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Style="{StaticResource tbMain}">Меню администратора</TextBlock>
+            <Button x:Name="btnSpUsers" Click="btnSpUsers_Click">Список пользователей</Button>
+            <Button Name="btnPrivateUser" Click="btnPrivateUser_Click" Visibility="Collapsed">Скрыть список пользователей</Button>
+            <DataGrid ColumnWidth="400" Visibility="Collapsed" Name="dgUsers" FontSize="16" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Center">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Имя" Width="100" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Фамилия" Width="110" Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Отчество" Width="120" Binding="{Binding Patronymic}"/>
+                    <DataGridTextColumn Header="Логин" Width="100" Binding="{Binding Login}"/>
+                    <DataGridTextColumn Header="Пол" Width="82" Binding="{Binding T_Pol.Pol}"/>
+                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
+                </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="btnProduct" Click="btnProduct_Click">Продукты</Button>
+            <Button x:Name="btnProfile" Click="btnProfile_Click">Личный кабинет</Button>
+        </StackPanel>
+    </Grid>
+</Page>
